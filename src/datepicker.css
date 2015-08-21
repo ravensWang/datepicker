@@ -127,3 +127,7 @@
     background-color: #fff;
     cursor: default;
 }
+
+/*For Ravens @2015/8/21*/
+.content-btns   {margin-top:5px;border-top:1px solid #DDD;padding:5px;background: #FFF;}
+.content-btns button    {background: #FFF;border:1px solid #DDD;color:#333;display: block;width: 50px;height: 24px;line-height: 24px;padding:0px;}

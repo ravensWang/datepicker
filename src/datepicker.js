@@ -49,6 +49,9 @@
                 if (!this.defaults.trigger) {
                     this.$element.on("focus", $.proxy(this.show, this));
                 }
+                if(this.defaults.lockInput){
+                    this.$element.attr('readonly','readonly');
+                }
             }
 
             this.$trigger.on("click", $.proxy(this.show, this));
@@ -185,14 +188,23 @@
         },
 
         output: function () {
-            var $element = this.$element,
-                date = Datepicker.fn.formatDate(this.date, this.format);
-
+            var $element = this.$element;
+            console.log($element);
+            if(this.date == null){
+                if ($element.is("input")) {
+                    $element.prop("value", '').trigger("change");
+                } else {
+                    $element.text('');
+                }
+                return false;
+            }
+            var date = Datepicker.fn.formatDate(this.date, this.format);
             if ($element.is("input")) {
                 $element.prop("value", date).trigger("change");
             } else {
                 $element.text(date);
             }
+
         },
 
         template: function (options) {
@@ -220,6 +232,13 @@
             this.fillYears();
             this.fillMonths();
             this.fillDays();
+            if(!this.defaults.clearBtn){
+                this.$picker.find('div.content-btns').remove();
+            }else{
+                this.$picker.find('div.content-btns').find('button').click(function(){
+                     $(this).data({type:'clear'});
+                });
+            }
         },
 
         fillYears: function () {
@@ -515,6 +534,11 @@
                 case "day disabled":
                     this.hideView();
                     break;
+                case "clear":
+                    this.hideView();
+                    this.date=null;
+                    this.output();
+                    break;
 
                 // No default
             }
@@ -686,13 +710,19 @@
                         '<ul class="datepicker-week" data-type="week"></ul>',
                         '<ul class="datepicker-days" data-type="days"></ul>',
                     '</div>',
+                    '<div class="content-btns">',
+                        '<button>清除</button>',
+                        '',
+                    '</div>',
                 '</div>',
             '</div>'
         ].join(""),
         trigger: undefined,
         viewStart: 0, // 0 for "days", 1 for "months", 2 for "years"
         weekStart: 0, // 0 for Sunday, 1 for Monday, 2 for Tuesday, 3 for Wednesday, 4 for Thursday, 5 for Friday, 6 for Saturday
-        yearSuffix: ""
+        yearSuffix: "",
+        clearBtn:false,
+        lockInput:false
     };
 
     Datepicker.setDefaults = function (options) {

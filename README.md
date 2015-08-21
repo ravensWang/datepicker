@@ -255,6 +255,25 @@ $.fn.datepicker.setDefaults({
     yearSuffix: "年"
 });
 ```
+#### clearBtn(By Ravens@Date 2015/2/21)
+
+* type: boolean
+* default: false
+* 用来新增一个清除按钮，点击可清除已选择的日期
+
+#### lockInput(By Ravens@Date 2015/2/21)
+
+* type: boolean
+* default: false
+* 用来锁定输入框，防止手动输入内容
+
+For example:
+```javascript
+$.fn.datepicker.setDefaults({
+    clearBtn：true,
+    lockInput: true
+});
+```
 
 
 ## Browser Support
