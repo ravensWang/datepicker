@@ -106,6 +106,7 @@
                         } else {
                             this.showView(0);
                         }
+                        this.$picker.find('div.content-btns').hide();
 
                         break;
 
@@ -120,6 +121,7 @@
                         } else {
                             this.showView(2);
                         }
+                        this.$picker.find('div.content-btns').hide();
 
                         break;
 
@@ -135,6 +137,7 @@
                         } else {
                             this.showView(1);
                         }
+                        this.$picker.find('div.content-btns').show();
                 }
             }
         },
